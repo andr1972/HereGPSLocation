@@ -33,11 +33,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		TextView textView;
 		textView = (TextView) findViewById(R.id.textView1);
-		RadioButton radio0 = (RadioButton) findViewById(R.id.radio0);		
+		RadioButton radio0 = (RadioButton) findViewById(R.id.radio0);
 		RadioButton radio1 = (RadioButton) findViewById(R.id.radio1);
 		LocationManager locationManager;
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Location location;
+		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		Location location;
 		if (radio0.isChecked())
 			location = locationManager.getLastKnownLocation("gps");
 		else if (radio1.isChecked())
