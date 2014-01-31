@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -30,7 +31,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		TextView textView;
 		textView = (TextView) findViewById(R.id.textView1);
-		textView.setText("12345");
+		RadioButton radio0 = (RadioButton) findViewById(R.id.radio0);		
+		RadioButton radio1 = (RadioButton) findViewById(R.id.radio1);
+		if (radio0.isChecked())
+			textView.setText("gps");
+		else if (radio1.isChecked())
+			textView.setText("network");
 	}
 
 }
