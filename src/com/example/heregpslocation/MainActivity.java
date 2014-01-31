@@ -1,5 +1,7 @@
 package com.example.heregpslocation;
 
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -33,10 +35,16 @@ public class MainActivity extends Activity implements OnClickListener {
 		textView = (TextView) findViewById(R.id.textView1);
 		RadioButton radio0 = (RadioButton) findViewById(R.id.radio0);		
 		RadioButton radio1 = (RadioButton) findViewById(R.id.radio1);
+		LocationManager locationManager;
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Location location;
 		if (radio0.isChecked())
-			textView.setText("gps");
+			location = locationManager.getLastKnownLocation("gps");
 		else if (radio1.isChecked())
-			textView.setText("network");
+			location = locationManager.getLastKnownLocation("network");
+		else
+			location = null;
+		textView.setText(location.toString());
 	}
 
 }
