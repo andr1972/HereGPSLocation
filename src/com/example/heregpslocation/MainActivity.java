@@ -44,7 +44,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			location = locationManager.getLastKnownLocation("network");
 		else
 			location = null;
-		textView.setText(location.toString());
+		if (location == null)
+			textView.setText("Turn GPS on!");
+		else
+			textView.setText(location.toString());
 	}
 
 }
