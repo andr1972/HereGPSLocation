@@ -3,9 +3,11 @@ package com.example.heregpslocation;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +31,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		checkBox = (CheckBox) findViewById(R.id.checkBox1);
 		checkBox.setChecked(locationManager.isProviderEnabled("gps"));
+		checkBox.setOnClickListener(this);
 	}
 
 	@Override
@@ -46,8 +49,22 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		if (v == checkBox)
+			clickCheckBox();
+		else
+			clickButton();
+	}
+
+	private void clickCheckBox() {
+		Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+		startActivity(intent);
+		checkBox.setChecked(locationManager.isProviderEnabled("gps"));
+	}
+
+	private void clickButton() {
 		TextView textView;
 		textView = (TextView) findViewById(R.id.textView1);
+
 		RadioButton radio0 = (RadioButton) findViewById(R.id.radio0);
 		RadioButton radio1 = (RadioButton) findViewById(R.id.radio1);
 		Location location;
