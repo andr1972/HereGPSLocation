@@ -5,6 +5,7 @@ import java.util.Calendar;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -23,6 +24,33 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button button;
 	private RadioButton radio0;
 	private RadioButton radio1;
+	private CheckBox checkBoxRefresh;
+	private int refreshCounter;
+	private TextView textCounter;
+
+	private LocationListener locationListener = new LocationListener() {
+		@Override
+		public void onLocationChanged(Location location) {
+			refreshCounter++;
+			textCounter.setText(Integer.toString(refreshCounter));
+		}
+
+		@Override
+		public void onProviderDisabled(String provider) {
+			refreshCounter = 0;
+			textCounter.setText("0");
+		}
+
+		@Override
+		public void onProviderEnabled(String provider) {
+			refreshCounter = 0;
+			textCounter.setText("0");
+		}
+
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +65,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		radio1 = (RadioButton) findViewById(R.id.radio1);
 		radio0.setOnClickListener(this);
 		radio1.setOnClickListener(this);
+		checkBoxRefresh = (CheckBox) findViewById(R.id.checkBox2);
+		checkBoxRefresh.setOnClickListener(this);
+		textCounter = (TextView) findViewById(R.id.textView2);
 	}
 
 	private void setButtonState() {
@@ -64,8 +95,25 @@ public class MainActivity extends Activity implements OnClickListener {
 			clickCheckBox();
 		else if (v == button)
 			clickButton();
+		else if (v == checkBoxRefresh)
+			clickCheckBoxRefresh();
 		else
 			setButtonState(); // for radio buttons
+	}
+
+	private void clickCheckBoxRefresh() {
+		refreshCounter = 0;
+		textCounter.setText("0");
+		if (checkBoxRefresh.isChecked()) {
+			String provider;
+			if (radio0.isChecked())
+				provider = LocationManager.GPS_PROVIDER;
+			else
+				provider = LocationManager.NETWORK_PROVIDER;
+			locationManager.requestLocationUpdates(provider, 1000, 0,
+					locationListener);
+		} else
+			locationManager.removeUpdates(locationListener);
 	}
 
 	private void clickCheckBox() {
@@ -86,14 +134,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		else
 			location = null;
 		if (location == null) {
-			if (radio0.isChecked())
-			{
+			if (radio0.isChecked()) {
 				if (locationManager.isProviderEnabled("gps"))
 					textView.setText("No GPS signal!");
 				else
 					textView.setText("Turn GPS on!");
-			}
-			else
+			} else
 				textView.setText("Network not enabled!");
 		} else {
 			long now = Calendar.getInstance().getTimeInMillis();

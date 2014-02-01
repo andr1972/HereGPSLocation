@@ -56,4 +56,22 @@
         android:layout_marginTop="18dp"
         android:text="Read" />
 
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_alignLeft="@+id/radioGroup1"
+        android:text="Refresh" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/checkBox2"
+        android:layout_alignBottom="@+id/checkBox2"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/radioGroup1"
+        android:text="0" />
+
 </RelativeLayout>
