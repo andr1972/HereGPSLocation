@@ -20,24 +20,35 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private LocationManager locationManager;
 	private CheckBox checkBox;
+	private Button button;
+	private RadioButton radio0;
+	private RadioButton radio1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Button button;
 		button = (Button) findViewById(R.id.button1);
 		button.setOnClickListener(this);
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		checkBox = (CheckBox) findViewById(R.id.checkBox1);
-		checkBox.setChecked(locationManager.isProviderEnabled("gps"));
 		checkBox.setOnClickListener(this);
+		radio0 = (RadioButton) findViewById(R.id.radio0);
+		radio1 = (RadioButton) findViewById(R.id.radio1);
+		radio0.setOnClickListener(this);
+		radio1.setOnClickListener(this);
+	}
+
+	private void setButtonState() {
+		boolean isGps = locationManager.isProviderEnabled("gps");
+		checkBox.setChecked(isGps);
+		button.setEnabled(isGps | radio1.isChecked());
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		checkBox.setChecked(locationManager.isProviderEnabled("gps"));
+		setButtonState();
 	}
 
 	@Override
@@ -51,8 +62,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		if (v == checkBox)
 			clickCheckBox();
-		else
+		else if (v == button)
 			clickButton();
+		else
+			setButtonState(); // for radio buttons
 	}
 
 	private void clickCheckBox() {
@@ -65,8 +78,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		TextView textView;
 		textView = (TextView) findViewById(R.id.textView1);
 
-		RadioButton radio0 = (RadioButton) findViewById(R.id.radio0);
-		RadioButton radio1 = (RadioButton) findViewById(R.id.radio1);
 		Location location;
 		if (radio0.isChecked())
 			location = locationManager.getLastKnownLocation("gps");
@@ -76,7 +87,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			location = null;
 		if (location == null) {
 			if (radio0.isChecked())
-				textView.setText("Turn GPS on!");
+			{
+				if (locationManager.isProviderEnabled("gps"))
+					textView.setText("No GPS signal!");
+				else
+					textView.setText("Turn GPS on!");
+			}
 			else
 				textView.setText("Network not enabled!");
 		} else {
