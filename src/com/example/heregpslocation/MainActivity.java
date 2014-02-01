@@ -53,12 +53,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			else
 				textView.setText("Network not enabled!");
 		} else {
-			Date now = Calendar.getInstance().getTime();
+			long now = Calendar.getInstance().getTimeInMillis();
 			textView.setText(String.format("Latitude = %s\nLongitude = %s\n"
 					+ "Accuracy = %f\n" + "%d seconds ago",
 					location.getLatitude(), location.getLongitude(),
 					location.getAccuracy(),
-					(now.getTime() - location.getTime()) / 1000));
+					(now - location.getTime()) / 1000));
 		}
 	}
 }
