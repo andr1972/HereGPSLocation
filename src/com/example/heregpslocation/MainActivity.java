@@ -1,12 +1,11 @@
 package com.example.heregpslocation;
 
 import java.util.Calendar;
-import java.util.Date;
 
+import android.app.Activity;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -57,8 +56,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			textView.setText(String.format("Latitude = %s\nLongitude = %s\n"
 					+ "Accuracy = %f\n" + "%d seconds ago",
 					location.getLatitude(), location.getLongitude(),
-					location.getAccuracy(),
-					(now - location.getTime()) / 1000));
+					location.getAccuracy(), (now - location.getTime()) / 1000));
 		}
 	}
 }
