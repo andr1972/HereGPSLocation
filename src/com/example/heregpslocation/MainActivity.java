@@ -10,12 +10,14 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
 
 	private LocationManager locationManager;
+	private CheckBox checkBox;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		button = (Button) findViewById(R.id.button1);
 		button.setOnClickListener(this);
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		checkBox = (CheckBox) findViewById(R.id.checkBox1);
+		checkBox.setChecked(locationManager.isProviderEnabled("gps"));
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		checkBox.setChecked(locationManager.isProviderEnabled("gps"));
 	}
 
 	@Override
