@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
 
+	private LocationManager locationManager;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,6 +24,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		Button button;
 		button = (Button) findViewById(R.id.button1);
 		button.setOnClickListener(this);
+		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 	}
 
 	@Override
@@ -37,8 +40,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		textView = (TextView) findViewById(R.id.textView1);
 		RadioButton radio0 = (RadioButton) findViewById(R.id.radio0);
 		RadioButton radio1 = (RadioButton) findViewById(R.id.radio1);
-		LocationManager locationManager;
-		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 		Location location;
 		if (radio0.isChecked())
 			location = locationManager.getLastKnownLocation("gps");
