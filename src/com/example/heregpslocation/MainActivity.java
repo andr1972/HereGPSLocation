@@ -1,5 +1,8 @@
 package com.example.heregpslocation;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -44,10 +47,18 @@ public class MainActivity extends Activity implements OnClickListener {
 			location = locationManager.getLastKnownLocation("network");
 		else
 			location = null;
-		if (location == null)
-			textView.setText("Turn GPS on!");
-		else
-			textView.setText(location.toString());
+		if (location == null) {
+			if (radio0.isChecked())
+				textView.setText("Turn GPS on!");
+			else
+				textView.setText("Network not enabled!");
+		} else {
+			Date now = Calendar.getInstance().getTime();
+			textView.setText(String.format("Latitude = %s\nLongitude = %s\n"
+					+ "Accuracy = %f\n" + "%d seconds ago",
+					location.getLatitude(), location.getLongitude(),
+					location.getAccuracy(),
+					(now.getTime() - location.getTime()) / 1000));
+		}
 	}
-
 }
