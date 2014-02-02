@@ -1,4 +1,4 @@
 bin/
-gen/com/example/heregpslocation/R.java
-gen/com/example/heregpslocation/BuildConfig.java
+gen/com/borneq/heregpslocation/R.java
+gen/com/borneq/heregpslocation/BuildConfig.java
 project.properties

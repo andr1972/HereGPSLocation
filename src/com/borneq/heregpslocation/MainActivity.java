@@ -1,6 +1,8 @@
-package com.example.heregpslocation;
+package com.borneq.heregpslocation;
 
 import java.util.Calendar;
+
+import com.borneq.heregpslocation.R;
 
 import android.app.Activity;
 import android.content.Intent;
