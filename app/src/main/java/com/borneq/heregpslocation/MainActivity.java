@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 	private LocationManager locationManager;
 	private CheckBox checkBox;
-	private Button button;
 	private RadioButton radio0;
 	private RadioButton radio1;
 	private CheckBox checkBoxRefresh;
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-		button = (Button) findViewById(R.id.button1);
 		checkBox = (CheckBox) findViewById(R.id.checkBox1);
 		radio0 = (RadioButton) findViewById(R.id.radio0);
 		radio1 = (RadioButton) findViewById(R.id.radio1);
@@ -68,17 +66,35 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		textCounter = (TextView) findViewById(R.id.textView2);
 		textView = (TextView) findViewById(R.id.textView1);
 
-		button.setOnClickListener(this);
 		checkBox.setOnClickListener(this);
 		radio0.setOnClickListener(this);
 		radio1.setOnClickListener(this);
 		checkBoxRefresh.setOnClickListener(this);
+
+		updateThread.start();
 	}
+
+	Thread updateThread = new Thread() {
+		public void run() {
+			try {
+				while (true) {
+					MainActivity.this.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							updateText();
+						}
+					});
+					Thread.sleep(1000);
+				}
+			} catch (InterruptedException ignore) {
+				// Thread was interrupted ==> stop loop
+			}
+		}
+	};
 
 	private void setButtonState() {
 		boolean isGps = locationManager.isProviderEnabled("gps");
 		checkBox.setChecked(isGps);
-		button.setEnabled(isGps | radio1.isChecked());
 	}
 
 	@Override
@@ -91,8 +107,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	public void onClick(View v) {
 		if (v == checkBox)
 			clickCheckBox();
-		else if (v == button)
-			clickButton();
 		else if (v == checkBoxRefresh)
 			clickCheckBoxRefresh();
 		else
@@ -120,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		checkBox.setChecked(locationManager.isProviderEnabled("gps"));
 	}
 
-	private void clickButton() {
+	private void updateText() {
 
 		Location location;
 		if (radio0.isChecked())

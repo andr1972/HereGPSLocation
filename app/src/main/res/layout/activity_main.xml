@@ -12,16 +12,21 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="38dp" />
+        android:layout_below="@+id/radioGroup1"
+        android:layout_marginTop="38dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
 
     <RadioGroup
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button1"
-        android:layout_marginLeft="42dp"
-        android:layout_toRightOf="@+id/button1" >
+        android:layout_alignBottom="@+id/checkBox2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <RadioButton
             android:id="@+id/radio0"
@@ -41,26 +46,16 @@
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
         android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:text="@string/gps" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/checkBox1"
-        android:layout_marginTop="18dp"
-        android:text="@string/read" />
 
     <CheckBox
         android:id="@+id/checkBox2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
-        android:layout_alignLeft="@+id/radioGroup1"
-        android:text="@string/refresh" />
+        android:text="@string/refresh"
+        android:layout_below="@+id/checkBox1" />
 
     <TextView
         android:id="@+id/textView2"
