@@ -14,8 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/button1"
-        android:layout_marginTop="22dp"
-        android:text="@string/hello_world" />
+        android:layout_marginTop="22dp" />
 
     <RadioGroup
         android:id="@+id/radioGroup1"
