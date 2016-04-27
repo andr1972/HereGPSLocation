@@ -1,4 +1,9 @@
-bin/
-gen/com/borneq/heregpslocation/R.java
-gen/com/borneq/heregpslocation/BuildConfig.java
-project.properties
+.gradle
+.idea
+app/build
+build
+gradle
+gradlew
+gradlew.bat
+*.iml
+local.properties
