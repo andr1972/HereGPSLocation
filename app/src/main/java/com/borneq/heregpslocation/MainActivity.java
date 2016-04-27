@@ -2,16 +2,14 @@ package com.borneq.heregpslocation;
 
 import java.util.Calendar;
 
-import com.borneq.heregpslocation.R;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.view.Menu;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -19,7 +17,7 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 	private LocationManager locationManager;
 	private CheckBox checkBox;
@@ -29,6 +27,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private CheckBox checkBoxRefresh;
 	private int refreshCounter;
 	private TextView textCounter;
+	private TextView textView;
 
 	private LocationListener locationListener = new LocationListener() {
 		@Override
@@ -58,18 +57,22 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		button = (Button) findViewById(R.id.button1);
-		button.setOnClickListener(this);
+
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+		button = (Button) findViewById(R.id.button1);
 		checkBox = (CheckBox) findViewById(R.id.checkBox1);
-		checkBox.setOnClickListener(this);
 		radio0 = (RadioButton) findViewById(R.id.radio0);
 		radio1 = (RadioButton) findViewById(R.id.radio1);
+		checkBoxRefresh = (CheckBox) findViewById(R.id.checkBox2);
+		textCounter = (TextView) findViewById(R.id.textView2);
+		textView = (TextView) findViewById(R.id.textView1);
+
+		button.setOnClickListener(this);
+		checkBox.setOnClickListener(this);
 		radio0.setOnClickListener(this);
 		radio1.setOnClickListener(this);
-		checkBoxRefresh = (CheckBox) findViewById(R.id.checkBox2);
 		checkBoxRefresh.setOnClickListener(this);
-		textCounter = (TextView) findViewById(R.id.textView2);
 	}
 
 	private void setButtonState() {
@@ -118,8 +121,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void clickButton() {
-		TextView textView;
-		textView = (TextView) findViewById(R.id.textView1);
 
 		Location location;
 		if (radio0.isChecked())
@@ -131,17 +132,20 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (location == null) {
 			if (radio0.isChecked()) {
 				if (locationManager.isProviderEnabled("gps"))
-					textView.setText("No GPS signal!");
+					textView.setText(R.string.no_gps);
 				else
-					textView.setText("Turn GPS on!");
+					textView.setText(R.string.turn_on);
 			} else
-				textView.setText("Network not enabled!");
+				textView.setText(R.string.network_disabled);
 		} else {
 			long now = Calendar.getInstance().getTimeInMillis();
-			textView.setText(String.format("Latitude = %s\nLongitude = %s\n"
-					+ "Accuracy = %f\n" + "%d seconds ago",
+			long secsAgo = (now - location.getTime()) / 1000;
+			if (secsAgo < 0) {
+				secsAgo = 0;
+			}
+			textView.setText(Html.fromHtml(getString(R.string.position_text,
 					location.getLatitude(), location.getLongitude(),
-					location.getAccuracy(), (now - location.getTime()) / 1000));
+					location.getAccuracy(), secsAgo)));
 		}
 	}
 }

@@ -12,9 +12,8 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/button1"
-        android:layout_marginTop="22dp" />
+        android:layout_marginTop="38dp" />
 
     <RadioGroup
         android:id="@+id/radioGroup1"
@@ -29,13 +28,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="GPS" />
+            android:text="@string/gps" />
 
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Network" />
+            android:text="@string/network" />
     </RadioGroup>
 
     <CheckBox
@@ -44,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button1"
         android:layout_alignParentTop="true"
-        android:text="GPS" />
+        android:text="@string/gps" />
 
     <Button
         android:id="@+id/button1"
@@ -53,7 +52,7 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/checkBox1"
         android:layout_marginTop="18dp"
-        android:text="Read" />
+        android:text="@string/read" />
 
     <CheckBox
         android:id="@+id/checkBox2"
@@ -61,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/button1"
         android:layout_alignLeft="@+id/radioGroup1"
-        android:text="Refresh" />
+        android:text="@string/refresh" />
 
     <TextView
         android:id="@+id/textView2"
@@ -70,7 +69,7 @@
         android:layout_alignBaseline="@+id/checkBox2"
         android:layout_alignBottom="@+id/checkBox2"
         android:layout_marginLeft="14dp"
-        android:layout_toRightOf="@+id/radioGroup1"
+        android:layout_toRightOf="@+id/checkBox2"
         android:text="0" />
 
 </RelativeLayout>
