@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Here GPS Location</string>
+    <string name="position_text" formatted="false"><![CDATA[
+        Latitude:<br />
+        <font color="#FF5722"><big><big><big>%s</big></big></big></font><br /><br />
+        Longitude:<br />
+        <font color="#FF5722"><big><big><big>%s</big></big></big></font><br /><br />
+		Accuracy:<br />
+        <font color="#FF5722"><big><big><big>%f</big></big></big></font><br /><br />
+        %d seconds ago
+    ]]></string>
+    <string name="no_gps">No GPS signal!</string>
+    <string name="turn_on">Turn GPS on!</string>
+    <string name="network_disabled">Network not enabled!</string>
+    <string name="gps">GPS</string>
+    <string name="network">Network</string>
+    <string name="read">Read</string>
+    <string name="refresh">Refresh</string>
+</resources>
